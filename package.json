@@ -90,11 +90,11 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
-    "zod": "^3.25.67"
-  },
-  "devDependencies": {
+    "zod": "^3.25.67",
     "@prisma/client": "^5.7.1",
     "prisma": "^5.7.1"
+  },
+  "devDependencies": {
   },
   "overrides": {
     "@types/react": "19.0.8"

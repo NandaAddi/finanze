@@ -48,26 +48,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-[#050505] selection:bg-emerald-500/30 overflow-hidden">
+    <div className="min-h-screen flex bg-[#020604] selection:bg-emerald-500/30 overflow-hidden">
       {/* LEFT PANEL — Branding (Desktop) */}
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden"
+        className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden bg-[#020604]"
       >
-        {/* Background Video */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-lighten"
         >
           <source src="/loginteaser.webm" type="video/webm" />
         </video>
         
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#020604] via-transparent to-[#020604]/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),transparent_70%)]" />
 
         {/* Top Header */}
         <motion.div 
@@ -152,7 +152,7 @@ export default function LoginPage() {
       </motion.div>
 
       {/* RIGHT PANEL — Login form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative overflow-hidden bg-background">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative overflow-hidden bg-[#020604]">
         
         {/* Mobile Background (Hidden on Desktop) */}
         <div className="lg:hidden absolute inset-0 z-0">
