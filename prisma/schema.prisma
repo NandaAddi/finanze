@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Profile {
+  id                  String             @id @default(cuid())
+  email               String             @unique
+  full_name           String?
+  avatar_url          String?
+  banner_url          String?
+  created_at          DateTime           @default(now())
+  updated_at          DateTime           @updatedAt
+  activity_logs       ActivityLog[]
+  categories          Category[]         @relation("CategoryCreator")
+  notifications       Notification[]
+  wallets             Wallet[]           @relation("WalletOwner")
+  created_wallets     Wallet[]           @relation("WalletCreator")
+  updated_wallets     Wallet[]           @relation("WalletUpdater")
+  transactions        Transaction[]      @relation("TransactionCreator")
+
+  @@map("profiles")
+}
+
+model Wallet {
+  id                 String          @id @default(cuid())
+  name               String
+  description        String?
+  slug               String          @unique
+  balance            Float           @default(0)
+  currency           String          @default("IDR")
+  user_id            String
+  created_by         String?
+  updated_by         String?
+  public_share_token String?         @unique
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+  activity_logs      ActivityLog[]
+  categories         Category[]
+  transactions       Transaction[]
+  creator            Profile?        @relation("WalletCreator", fields: [created_by], references: [id])
+  updater            Profile?        @relation("WalletUpdater", fields: [updated_by], references: [id])
+  owner              Profile         @relation("WalletOwner", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("wallets")
+}
+
+model Category {
+  id         String   @id @default(cuid())
+  name       String
+  icon       String?
+  color      String?
+  wallet_id  String
+  position   Int
+  created_by String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  creator    Profile? @relation("CategoryCreator", fields: [created_by], references: [id])
+  wallet     Wallet   @relation(fields: [wallet_id], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@map("categories")
+}
+
+model Transaction {
+  id                 String          @id @default(cuid())
+  amount             Float
+  type               TransactionType @default(EXPENSE)
+  description        String?
+  category_id        String
+  wallet_id          String
+  created_by         String?
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+  category           Category        @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  wallet             Wallet          @relation(fields: [wallet_id], references: [id], onDelete: Cascade)
+  creator            Profile?        @relation("TransactionCreator", fields: [created_by], references: [id])
+  activity_logs      ActivityLog[]
+
+  @@map("transactions")
+}
+
+model ActivityLog {
+  id             String       @id @default(cuid())
+  wallet_id      String
+  user_id        String
+  action         String
+  entity_type    String
+  entity_id      String?
+  details        Json?
+  created_at     DateTime     @default(now())
+  transaction    Transaction? @relation(fields: [entity_id], references: [id])
+  wallet         Wallet       @relation(fields: [wallet_id], references: [id], onDelete: Cascade)
+  user           Profile      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("activity_logs")
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  user_id    String
+  title      String
+  message    String
+  type       String
+  read       Boolean  @default(false)
+  data       Json?
+  created_at DateTime @default(now())
+  user       Profile  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}

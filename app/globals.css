@@ -1,0 +1,362 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ===== CLAUDE.AI LIGHT ===== */
+    /* Background: warm cream #F5F4EE */
+    --background: 48 18% 95%;
+    --foreground: 28 10% 12%;
+
+    /* Cards: near-white warm */
+    --card: 45 20% 97%;
+    --card-foreground: 28 10% 12%;
+
+    --popover: 45 20% 97%;
+    --popover-foreground: 28 10% 12%;
+
+    /* Primary: terracotta/amber #D97757 */
+    --primary: 20 62% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 15% 91%;
+    --secondary-foreground: 28 10% 20%;
+
+    /* Muted: slightly darker cream */
+    --muted: 45 14% 90%;
+    --muted-foreground: 28 8% 45%;
+
+    /* Accent: warm terracotta tint */
+    --accent: 25 55% 93%;
+    --accent-foreground: 20 62% 38%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border: #E8E8E3 = very subtle warm */
+    --border: 45 10% 88%;
+    --input: 45 10% 88%;
+    --ring: 20 62% 60%;
+
+    /* Radius: Claude uses generous rounding */
+    --radius: 0.625rem;
+
+    /* Sidebar: same warm bg as page */
+    --sidebar-background: 48 16% 93%;
+    --sidebar-foreground: 28 8% 30%;
+    --sidebar-primary: 20 62% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 45 14% 88%;
+    --sidebar-accent-foreground: 28 10% 15%;
+    --sidebar-border: 45 10% 86%;
+    --sidebar-ring: 20 62% 60%;
+  }
+
+  .dark {
+    /* ===== MINIMALIST DARK THEME ===== */
+    /* Background: extremely dark #0A0A0A */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 90%;
+
+    /* Cards: slightly lighter than bg, #0F0F0F to #121212 */
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 90%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 90%;
+
+    /* Primary: white/light grey for high contrast accents */
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 80%;
+
+    /* Muted: #1E1E1E */
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 80% 50%;
+    --destructive-foreground: 0 0% 95%;
+
+    /* Border: very subtle #1A1A1A */
+    --border: 0 0% 10%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 25%;
+
+    /* Sidebar dark: match background */
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 50%;
+    --sidebar-primary: 0 0% 95%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 8%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 10%;
+    --sidebar-ring: 0 0% 25%;
+  }
+
+  /* ============================================ */
+  /* ACCENT THEMES — preserve existing behavior   */
+  /* ============================================ */
+
+  /* === PINK THEME === */
+  .theme-pink {
+    --primary: 340 82% 60%;
+    --ring: 340 82% 60%;
+    --accent: 340 55% 93%;
+    --accent-foreground: 340 82% 35%;
+  }
+  .dark.theme-pink {
+    --primary: 340 75% 65%;
+    --ring: 340 75% 65%;
+    --accent: 340 40% 18%;
+    --accent-foreground: 340 75% 85%;
+  }
+
+  /* === BLUE THEME === */
+  .theme-blue {
+    --primary: 221 83% 53%;
+    --ring: 221 83% 53%;
+    --accent: 221 55% 93%;
+    --accent-foreground: 221 83% 35%;
+  }
+  .dark.theme-blue {
+    --primary: 217 91% 60%;
+    --ring: 217 91% 60%;
+    --accent: 217 40% 18%;
+    --accent-foreground: 217 91% 85%;
+  }
+
+  /* === VIOLET THEME === */
+  .theme-violet {
+    --primary: 262 83% 58%;
+    --ring: 262 83% 58%;
+    --accent: 262 55% 93%;
+    --accent-foreground: 262 83% 35%;
+  }
+  .dark.theme-violet {
+    --primary: 263 90% 70%;
+    --ring: 263 90% 70%;
+    --accent: 263 40% 18%;
+    --accent-foreground: 263 90% 85%;
+  }
+
+  /* === ORANGE THEME === */
+  .theme-orange {
+    --primary: 24 95% 53%;
+    --ring: 24 95% 53%;
+    --accent: 24 55% 93%;
+    --accent-foreground: 24 95% 35%;
+  }
+  .dark.theme-orange {
+    --primary: 24 95% 64%;
+    --ring: 24 95% 64%;
+    --accent: 24 40% 18%;
+    --accent-foreground: 24 95% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  /* Claude-like: serif for display headings */
+  h1 {
+    font-family: var(--font-lora), 'Georgia', serif;
+    @apply tracking-tight;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Claude-like: generous input styling */
+  input, textarea {
+    @apply transition-colors;
+  }
+}
+
+/* ===== CUSTOM SCROLLBAR (very Claude-minimal) ===== */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.4);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+  50%       { box-shadow: 0 0 16px 3px hsl(var(--primary) / 0.2); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+@keyframes shine {
+  0%  { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  to  { background-position: 0% 0%; }
+}
+
+@keyframes shiny-text {
+  0%, 90%, 100% { background-position: calc(-100% - var(--shiny-width)) 0; }
+  30%, 60%       { background-position: calc(100% + var(--shiny-width)) 0; }
+}
+
+@keyframes gradient {
+  to { background-position: var(--bg-size, 300%) 0; }
+}
+
+/* ===== ANIMATION UTILITIES ===== */
+.animate-fade-in        { animation: fade-in 0.35s ease both; }
+.animate-fade-in-up     { animation: fade-in-up 0.45s ease both; }
+.animate-slide-in-right { animation: slide-in-right 0.35s ease both; }
+.animate-scale-in       { animation: scale-in 0.25s ease both; }
+.animate-glow-pulse     { animation: glow-pulse 2.5s ease-in-out infinite; }
+.animate-gradient       { animation: gradient-shift 6s ease infinite; }
+.animate-shimmer        { animation: shimmer 2s linear infinite; }
+.animate-spin-slow      { animation: spin-slow 20s linear infinite; }
+.animate-float          { animation: float 3s ease-in-out infinite; }
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 0.04s; }
+.stagger-2 { animation-delay: 0.08s; }
+.stagger-3 { animation-delay: 0.12s; }
+.stagger-4 { animation-delay: 0.16s; }
+.stagger-5 { animation-delay: 0.20s; }
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+  background: hsl(var(--background) / 0.75);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid hsl(var(--border) / 0.7);
+}
+
+.glass-strong {
+  background: hsl(var(--background) / 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid hsl(var(--border) / 0.85);
+}
+
+/* ===== GRADIENT TEXT — Claude terracotta ===== */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(32 80% 70%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== SERIF HEADING UTILITY ===== */
+.font-serif-display {
+  font-family: var(--font-lora), 'Georgia', 'Times New Roman', serif;
+  font-weight: 500;
+}
+
+/* ===== GLOW EFFECTS (softer than before) ===== */
+.glow-primary {
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.25), 0 0 40px hsl(var(--primary) / 0.10);
+}
+
+.glow-primary-sm {
+  box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
+}
+
+/* ===== CARD HOVER — Claude subtle ===== */
+.card-hover {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-hover:hover {
+  border-color: hsl(var(--primary) / 0.35);
+  box-shadow: 0 2px 12px hsl(var(--foreground) / 0.05);
+}
+
+/* MagicUI theme */
+.theme {
+  --animate-shine: shine var(--duration) infinite linear;
+  --animate-shiny-text: shiny-text 8s infinite;
+  --animate-gradient: gradient 8s linear infinite;
+}
+
+/* ===== MOBILE UTILITIES ===== */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 10px;
+}
